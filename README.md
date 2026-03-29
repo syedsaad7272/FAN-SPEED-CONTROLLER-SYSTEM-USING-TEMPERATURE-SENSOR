@@ -1,8 +1,9 @@
 
+
 # FAN-SPEED-CONTROLLER-SYSTEM-USING-TEMPERATURE-SENSOR
 ## EXP 1(A) FAN SPEED CONTROLLER SYSTEM USING TEMPERATURE SENSOR
 
-### Aim:
+# Aim:
 	To measure the Temperature using DHT11/DHT22/TMP36  sensor with Arduino UNO Board/ESP-32 using Tinker CAD.
 
 # Hardware / Software Tools required:
@@ -13,9 +14,9 @@
 
 # Circuit Diagram:
 
----
-To upload
---
+<img width="1366" height="942" alt="Screenshot 2026-03-24 215306" src="https://github.com/user-attachments/assets/82fcde19-cce9-41f8-9b1f-dca6b6cac185" />
+
+
 
 # Procedure // Modify the procedure based on your circuit
 
@@ -56,13 +57,46 @@ Step 7: Save Your Work
 
 
 # Program
+```
+const int analogIn = A0;
+int humiditysensorOutput = 0;
+// Defining Variables
+int RawValue= 0;
+double Voltage = 0;
+double tempC = 0;
+double tempF = 0;
+void setup(){  
+  Serial.begin(9600);
+  pinMode(A1, INPUT);
+}
+void loop(){
+  RawValue = analogRead(analogIn);
+  Voltage = (RawValue / 1023.0) * 5000; // 5000 to get millivots.
+  tempC = (Voltage-500) * 0.1; // 500 is the offset
+  tempF = (tempC * 1.8) + 32; // convert to F  
+  Serial.print("Raw Value = " );                  
+  Serial.print(RawValue);      
+  Serial.print("\t milli volts = ");
+  Serial.print(Voltage,0); //
+  Serial.print("\t Temperature in C = ");
+  Serial.print(tempC,1);
+  Serial.print("\t Temperature in F = ");
+  Serial.println(tempF,1);
+  humiditysensorOutput = analogRead(A1);
+  Serial.print("Humidity: "); // Printing out Humidity Percentage
+  Serial.print(map(humiditysensorOutput, 0, 1023, 10, 70));
+  Serial.println("%");
+  delay(5000);  //iterate every 5 seconds
+}
+```
 
----
-To upload
---
+
+# Output
+
+<img width="1808" height="911" alt="Screenshot 2026-03-24 215733" src="https://github.com/user-attachments/assets/c118b355-a611-4fd5-83a2-d89f28d0b387" />
+
+<img width="691" height="349" alt="Screenshot 2026-03-24 220104" src="https://github.com/user-attachments/assets/4f7e81bc-2185-46f8-b01e-106ee206d389" />
+
 
 # Result
-
----
-To upload
---
+The Temperature using DHT11/DHT22/TMP36  sensor with Arduino UNO Board/ESP-32 using Tinker CAD is simulated.
